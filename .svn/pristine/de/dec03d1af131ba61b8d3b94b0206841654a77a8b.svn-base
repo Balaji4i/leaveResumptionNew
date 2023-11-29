@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="searchPayrollPageDef"
+                Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SearchLeaveResumption_RoVo1" RangeSize="15" DataControl="Naresco_AMDataControl"
+              id="SearchLeaveResumption_RoVo1Iterator"/>
+    <searchRegion Binds="SearchLeaveResumption_RoVo1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="SearchLeaveResumption_RoVo1Query"/>
+    <searchRegion Criteria="SearchLrVc" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="SearchLeaveResumption_RoVo1Iterator" id="SearchLrVcQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="SearchLeaveResumption_RoVo1Iterator" id="SearchLeaveResumption_RoVo1">
+      <nodeDefinition DefName="model.rovo.SearchLeaveResumption_RoVo" Name="SearchLeaveResumption_RoVo10">
+        <AttrNames>
+          <Item Value="LeaveReqId"/>
+          <Item Value="LeaveReqNo"/>
+          <Item Value="PerAbsenceEntryId"/>
+          <Item Value="LeaveReqType"/>
+          <Item Value="EmpNo"/>
+          <Item Value="EmployeeName"/>
+          <Item Value="StratDate"/>
+          <Item Value="EndDate"/>
+          <Item Value="AppliedLeaveDays"/>
+          <Item Value="Status"/>
+          <Item Value="FlowWith"/>
+          <Item Value="FlowStatus"/>
+          <Item Value="ExtraLeaveDays"/>
+          <Item Value="TotalLeaveDays"/>
+          <Item Value="NextAppr"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="SearchLeaveResumption_RoVo1Iterator" id="LeaveReqId">
+      <AttrNames>
+        <Item Value="LeaveReqId"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

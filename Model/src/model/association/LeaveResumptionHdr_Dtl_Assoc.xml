@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="LeaveResumptionHdr_Dtl_Assoc"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="LeaveResumptionHdr_EO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.eo.LeaveResumptionHdr_EO"
+    LockLevel="NONE">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="LeaveResumptionHdr_EO"/>
+      <Attr Name="_foreignKey" Value="model.eo.LeaveResumptionHdr_EO.XxlrLeaveResumptionHeaderPk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.eo.LeaveResumptionHdr_EO.LeaveReqId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="LeaveResumptionDtl_EO"
+    Cardinality="-1"
+    Owner="model.eo.LeaveResumptionDtl_EO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="LeaveResumptionDtl_EO"/>
+      <Attr Name="_foreignKey" Value="model.eo.LeaveResumptionDtl_EO.fk_LeaveResumptionDtl_EO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.eo.LeaveResumptionDtl_EO.LeaveReqId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

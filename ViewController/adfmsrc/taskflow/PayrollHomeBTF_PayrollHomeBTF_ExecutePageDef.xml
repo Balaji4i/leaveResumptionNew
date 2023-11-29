@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="PayrollHomeBTF_PayrollHomeBTF_ExecutePageDef" Package="taskflow" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="PAYROLL_HDR_VO" RangeSize="25" DataControl="Naresco_AMDataControl" id="PAYROLL_HDR_VOIterator"
+              Refresh="never"/>
+    <iterator Binds="SearchLeaveResumption_RoVo1" RangeSize="10" DataControl="Naresco_AMDataControl"
+              id="SearchLeaveResumption_RoVo1Iterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="SearchLeaveResumption_RoVo1Iterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"
+            InstanceName="Naresco_AMDataControl.SearchLeaveResumption_RoVo1" DataControl="Naresco_AMDataControl">
+      <NamedData NDName="bv_Id" NDValue="#{pageFlowScope.id}" NDType="java.math.BigDecimal"/>
+    </action>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="LeaveRhdr_GetAprLr_VL"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.vl.LeaveRhdr_GetAprLr_VL_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="LeaveResumptionHdr_VO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.vo.LeaveResumptionHdr_VO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="LeaveResumptionHdr_VO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.vo.LeaveResumptionHdr_VO.EmpId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="GetAprLeaveR_RoVo"
+    Cardinality="-1"
+    Owner="model.rovo.GetAprLeaveR_RoVo">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="GetAprLeaveR_RoVo"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.rovo.GetAprLeaveR_RoVo.EmpId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

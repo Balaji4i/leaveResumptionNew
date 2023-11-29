@@ -1,0 +1,605 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/oracle/apps/uikit/common/pageTemplates/MainPageTemplate.jspx" id="pt1">
+        <f:facet name="pageContents">
+            <af:panelBox id="pb1" showDisclosure="false">
+                <af:panelGridLayout id="pgl1">
+                    <af:gridRow marginTop="5px" height="auto" id="gr1">
+                        <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc2">
+                            <af:outputText value="Naresco Leave Resumption" id="ot1"
+                                           inlineStyle="font-size:large; font-weight:bold"/>
+                        </af:gridCell>
+                    </af:gridRow>
+                    <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2" >
+                        <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc4" halign="end">
+                            <af:toolbar id="t2">
+                            <af:spacer width="10" height="10" id="s4"/>
+                            <af:menuBar id="mb2">
+                              <af:menu text="Reports" id="m1">
+                                 <!--<af:commandMenuItem text="Duty Joining Report" id="cmi2"  >
+                                    <af:fileDownloadActionListener  contentType="application/pdf" filename="DutyJoiningReport.pdf"
+                                          method="#{backingBeanScope.AddEditLeaveResumptionMb.onClickLJoingReport}"/>
+                                 </af:commandMenuItem>-->
+                                        <af:goMenuItem text="Duty Joining Report" id="gmi1"
+                                                       destination="https://ncltstjcs.naresco.ae/OtlLeaveResReport/webresources/leaveresumption/dutyJoiningReport?P_LR_ID=#{bindings.LeaveReqId.inputValue}&amp;P_EMP_CODE=#{bindings.EmpNo.inputValue}&amp;P_FILE_TYPE=pdf"
+                                                       targetFrame="_blank"/>
+                                    </af:menu>
+                             </af:menuBar>
+                            <af:spacer width="10" height="10" id="s6"/>
+                            <af:button text="Save" id="b1"
+                                       actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickSave}"/>
+                            <af:spacer width="10" height="10" id="s1"/>
+                            <af:button text="Submit" id="b5"
+                                       disabled="#{bindings.Status.inputValue ne 'Draft' and bindings.Status.inputValue ne 'REJ'}"
+                                       rendered="#{bindings.Status.inputValue eq 'Draft' or bindings.Status.inputValue eq null or bindings.Status.inputValue eq 'REJ'}"                                      
+                                       actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickSubmit}"
+                                       action="back"/>
+                            <af:spacer width="10" height="10" id="s2"/>   
+                            <af:menuBar id="mb3">
+                             <af:menu text="Action" id="m3" partialTriggers="b5"
+                                      rendered="#{backingBeanScope.AddEditLeaveResumptionMb.approvalUser}">
+                                 <af:commandMenuItem text="Approve" id="cmi3">
+                                    <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                                 </af:commandMenuItem>
+                                 <af:commandMenuItem text="Reject" id="cmi1">
+                                    <af:showPopupBehavior popupId="p2" triggerType="action"/>
+                                 </af:commandMenuItem>
+                              </af:menu>
+                              <af:spacer width="10" height="10" id="s18"/>
+                             </af:menuBar>
+                            <af:button text="Cancel" id="b2" action="back"
+                                       actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickCancel}"/>
+                            <af:button text="Approved Leave History" id="b3">
+                            <af:showPopupBehavior popupId="p4" triggerType="action"/>
+                            </af:button>
+                           </af:toolbar>
+         <af:popup autoCancel="disabled" id="p1"  binding="#{backingBeanScope.AddEditLeaveResumptionMb.p1}" contentDelivery="lazyUncached">
+          <af:dialog id="d1" type="none" title="Are you sure  want to Approve this record ?">
+            <f:facet name="buttonBar">
+              <af:toolbar id="t4" flex="1">
+                <af:spacer width="10" height="10" id="s16"/>
+                <af:button text="Ok" id="b11"  partialTriggers="it15"
+                           actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickApprove}" action="back"/>
+                <af:spacer width="10" height="10" id="s17"/>
+                <af:button text="Cancel" id="b12" actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickApprCancel}"/>
+              </af:toolbar>
+            </f:facet>
+           </af:dialog>                 
+                </af:popup>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                  binding="#{backingBeanScope.AddEditLeaveResumptionMb.p2}" contentDelivery="lazyUncached">
+          <af:dialog id="d2"  type="none" title="Are you sure  want to Reject this record ?">
+            <f:facet name="buttonBar">
+              <af:toolbar id="t5" flex="1">
+                <af:spacer width="10" height="10" id="s19"/>
+                <af:button text="Ok" id="b13" partialTriggers="it15"
+                           actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickRejectSave}"/>
+                <af:spacer width="10" height="10" id="s20"/>
+                <af:button text="Cancel" id="b14"
+                           actionListener="#{backingBeanScope.AddEditLeaveResumptionMb.onClickRejectCancel}"/>
+              </af:toolbar>
+            </f:facet>
+            
+          </af:dialog>
+        </af:popup>
+        <af:popup id="p4">
+                      <af:dialog id="d4" title="Approved Leave Resumption History"
+                                 inlineStyle="width:80.0%;">
+                                    <af:table value="#{bindings.GetAprLeaveR_RoVo1.collectionModel}" var="row"
+                                              rows="#{bindings.GetAprLeaveR_RoVo1.rangeSize}" varStatus="vs"
+                                              emptyText="#{bindings.GetAprLeaveR_RoVo1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                              rowBandingInterval="0" columnStretching="column:c18" inlineStyle="width:inherit;"
+                                              selectedRowKeys="#{bindings.GetAprLeaveR_RoVo1.collectionModel.selectedRow}"
+                                              selectionListener="#{bindings.GetAprLeaveR_RoVo1.collectionModel.makeCurrent}"
+                                              rowSelection="single" fetchSize="#{bindings.GetAprLeaveR_RoVo1.rangeSize}"
+                                              id="t3">
+                                        <af:column id="c30" headerText="Sl No" width="50" align="center">
+                                          <af:outputText value="#{vs.index+1}" id="ot31"/>
+                                        </af:column>
+                                        <af:column headerText="#{bindings.GetAprLeaveR_RoVo1.hints.LeaveReqId.label}"
+                                                   id="c16" rendered="false">
+                                            <af:outputText value="#{row.LeaveReqId}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.LeaveReqId.tooltip}"
+                                                           id="ot17">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.GetAprLeaveR_RoVo1.hints.LeaveReqId.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Leave Req No"
+                                                   id="c17">
+                                            <af:outputText value="#{row.LeaveReqNo}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.LeaveReqNo.tooltip}"
+                                                           id="ot18"/>
+                                        </af:column>
+                                        <af:column headerText="Leave Req Type"
+                                                   id="c18" width="220">
+                                            <af:outputText value="#{row.LeaveReqType}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.LeaveReqType.tooltip}"
+                                                           id="ot19"/>
+                                        </af:column>
+                                        <af:column headerText="#{bindings.GetAprLeaveR_RoVo1.hints.EmpId.label}"
+                                                   id="c19" rendered="false">
+                                            <af:outputText value="#{row.EmpId}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.EmpId.tooltip}"
+                                                           id="ot20">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.GetAprLeaveR_RoVo1.hints.EmpId.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Emp No"
+                                                   id="c20" visible="false">
+                                            <af:outputText value="#{row.EmpNo}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.EmpNo.tooltip}"
+                                                           id="ot21"/>
+                                        </af:column>
+                                        <af:column headerText="#{bindings.GetAprLeaveR_RoVo1.hints.EmployeeName.label}"
+                                                   id="c21" rendered="false">
+                                            <af:outputText value="#{row.EmployeeName}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.EmployeeName.tooltip}"
+                                                           id="ot22"/>
+                                        </af:column>
+                                        <af:column headerText="Leave From"
+                                                   id="c22">
+                                            <af:outputText value="#{row.StratDate}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.StratDate.tooltip}"
+                                                           id="ot23">
+                                                <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Leave To"
+                                                   id="c23">
+                                            <af:outputText value="#{row.EndDate}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.EndDate.tooltip}"
+                                                           id="ot24">
+                                                <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Applied Leave Days"
+                                                   id="c24">
+                                            <af:outputText value="#{row.AppliedLeaveDays}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.AppliedLeaveDays.tooltip}"
+                                                           id="ot25">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.GetAprLeaveR_RoVo1.hints.AppliedLeaveDays.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Expected Return Date"
+                                                   id="c25">
+                                            <af:outputText value="#{row.ExpectedReturnDate}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.ExpectedReturnDate.tooltip}"
+                                                           id="ot26">
+                                                <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Actual Return Date"
+                                                   id="c26">
+                                            <af:outputText value="#{row.ActualReturnDate}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.ActualReturnDate.tooltip}"
+                                                           id="ot27">
+                                                <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Extra Leave Days"
+                                                   id="c27">
+                                            <af:outputText value="#{row.ExtraLeaveDays}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.ExtraLeaveDays.tooltip}"
+                                                           id="ot28">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.GetAprLeaveR_RoVo1.hints.ExtraLeaveDays.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="Total Leave Days"
+                                                   id="c28">
+                                            <af:outputText value="#{row.TotalLeaveDays}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.TotalLeaveDays.tooltip}"
+                                                           id="ot29">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.GetAprLeaveR_RoVo1.hints.TotalLeaveDays.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column headerText="#{bindings.GetAprLeaveR_RoVo1.hints.Status.label}"
+                                                   id="c29" rendered="false">
+                                            <af:outputText value="#{row.Status}"
+                                                           shortDesc="#{bindings.GetAprLeaveR_RoVo1.hints.Status.tooltip}"
+                                                           id="ot30"/>
+                                        </af:column>
+                                    </af:table>
+                                </af:dialog>
+                    </af:popup>
+                        </af:gridCell>
+                    </af:gridRow>
+                </af:panelGridLayout>                           
+                <af:spacer width="10" height="30" id="s3"/>
+                <af:panelBox showDisclosure="false" inlineStyle="border-color:transparent;" id="pb3">
+                    <af:panelBox text="Leave Request Details" showDisclosure="false" id="pb6">
+                            <f:facet name="toolbar"/>
+                    <af:panelFormLayout id="pfl1" rows="3" maxColumns="3">
+                        <af:inputText value="#{bindings.LeaveReqId.inputValue}"
+                                      label="#{bindings.LeaveReqId.hints.label}"
+                                      required="#{bindings.LeaveReqId.hints.mandatory}"
+                                      columns="#{bindings.LeaveReqId.hints.displayWidth}"
+                                      maximumLength="#{bindings.LeaveReqId.hints.precision}"
+                                      shortDesc="#{bindings.LeaveReqId.hints.tooltip}" id="it1"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.LeaveReqId.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.LeaveReqId.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.LeaveReqNo.inputValue}"
+                                      label="Leave Req No" contentStyle="width:220px;font-size:medium; font-weight:bold;color:#1367ae;"
+                                      required="#{bindings.LeaveReqNo.hints.mandatory}"
+                                      columns="#{bindings.LeaveReqNo.hints.displayWidth}"
+                                      maximumLength="#{bindings.LeaveReqNo.hints.precision}"
+                                      shortDesc="#{bindings.LeaveReqNo.hints.tooltip}" id="it2"
+                                      readOnly="true">
+                            <f:validator binding="#{bindings.LeaveReqNo.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.PerAbsenceEntryId.inputValue}"
+                                      label="#{bindings.PerAbsenceEntryId.hints.label}"
+                                      required="#{bindings.PerAbsenceEntryId.hints.mandatory}"
+                                      columns="#{bindings.PerAbsenceEntryId.hints.displayWidth}"
+                                      maximumLength="#{bindings.PerAbsenceEntryId.hints.precision}"
+                                      shortDesc="#{bindings.PerAbsenceEntryId.hints.tooltip}" id="it3"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.PerAbsenceEntryId.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.PerAbsenceEntryId.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.LeaveReqType.inputValue}"
+                                      label="Leave Req Type"
+                                      required="#{bindings.LeaveReqType.hints.mandatory}"
+                                      columns="#{bindings.LeaveReqType.hints.displayWidth}"
+                                      maximumLength="#{bindings.LeaveReqType.hints.precision}"
+                                      shortDesc="#{bindings.LeaveReqType.hints.tooltip}" id="it4"
+                                      contentStyle="width:220px" readOnly="true">
+                            <f:validator binding="#{bindings.LeaveReqType.validator}"/>
+                        </af:inputText>
+                         <af:inputDate value="#{bindings.StratDate.inputValue}" label="Leave From"
+                                      required="#{bindings.StratDate.hints.mandatory}"
+                                      columns="#{bindings.StratDate.hints.displayWidth}"
+                                      shortDesc="#{bindings.StratDate.hints.tooltip}" id="id2"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.StratDate.validator}"/>
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:inputDate>
+                        <af:inputDate value="#{bindings.EndDate.inputValue}" label="Leave To"
+                                      required="#{bindings.EndDate.hints.mandatory}"
+                                      columns="#{bindings.EndDate.hints.displayWidth}"
+                                      shortDesc="#{bindings.EndDate.hints.tooltip}" id="id3"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.EndDate.validator}"/>
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:inputDate>
+                        <af:inputText value="#{bindings.FuncId.inputValue}" label="#{bindings.FuncId.hints.label}"
+                                      required="#{bindings.FuncId.hints.mandatory}"
+                                      columns="#{bindings.FuncId.hints.displayWidth}"
+                                      maximumLength="#{bindings.FuncId.hints.precision}"
+                                      shortDesc="#{bindings.FuncId.hints.tooltip}" id="it5"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.FuncId.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.FuncId.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.EmpId.inputValue}" label="#{bindings.EmpId.hints.label}"
+                                      required="#{bindings.EmpId.hints.mandatory}"
+                                      columns="#{bindings.EmpId.hints.displayWidth}"
+                                      maximumLength="#{bindings.EmpId.hints.precision}"
+                                      shortDesc="#{bindings.EmpId.hints.tooltip}" id="it6"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.EmpId.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.EmpId.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.EmpNo.inputValue}" label="Employee No"
+                                      required="#{bindings.EmpNo.hints.mandatory}"
+                                      columns="#{bindings.EmpNo.hints.displayWidth}"
+                                      maximumLength="#{bindings.EmpNo.hints.precision}"
+                                      shortDesc="#{bindings.EmpNo.hints.tooltip}" id="it7"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.EmpNo.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.EmployeeName.inputValue}"
+                                      label="Employee Name"
+                                      required="#{bindings.EmployeeName.hints.mandatory}"
+                                      columns="#{bindings.EmployeeName.hints.displayWidth}"
+                                      maximumLength="#{bindings.EmployeeName.hints.precision}"
+                                      shortDesc="#{bindings.EmployeeName.hints.tooltip}" id="it8"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.EmployeeName.validator}"/>
+                        </af:inputText>
+                        <af:inputDate value="#{bindings.HireDate.inputValue}" label="Hire Date"
+                                      required="#{bindings.HireDate.hints.mandatory}"
+                                      columns="#{bindings.HireDate.hints.displayWidth}"
+                                      shortDesc="#{bindings.HireDate.hints.tooltip}" id="id1"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.HireDate.validator}"/>
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:inputDate>          
+                        <af:inputText value="#{bindings.AppliedLeaveDays.inputValue}"
+                                      label="Applied Leave Days"
+                                      required="#{bindings.AppliedLeaveDays.hints.mandatory}"
+                                      columns="#{bindings.AppliedLeaveDays.hints.displayWidth}"
+                                      maximumLength="#{bindings.AppliedLeaveDays.hints.precision}"
+                                      shortDesc="#{bindings.AppliedLeaveDays.hints.tooltip}" id="it9"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.AppliedLeaveDays.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.AppliedLeaveDays.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.Status.inputValue eq 'PEN' ? 'Pending' : bindings.Status.inputValue eq 'APR' ? 'Approved' : bindings.Status.inputValue eq 'REJ' ? 'Rejected' : bindings.Status.inputValue}" label="#{bindings.Status.hints.label}"
+                                      required="#{bindings.Status.hints.mandatory}"
+                                      columns="#{bindings.Status.hints.displayWidth}"
+                                      maximumLength="#{bindings.Status.hints.precision}"
+                                      shortDesc="#{bindings.Status.hints.tooltip}" id="it15"
+                                      contentStyle="width:220px" readOnly="true">
+                            <f:validator binding="#{bindings.Status.validator}"/>
+                        </af:inputText>
+                        </af:panelFormLayout>
+                        </af:panelBox>
+                    <af:panelBox text="Leave Return Details" showDisclosure="false" id="pb4">
+                            <f:facet name="toolbar"/>
+                            <af:panelFormLayout id="pfl2" rows="2" maxColumns="3">
+                                <f:facet name="footer"/>                           
+                            <af:inputDate value="#{bindings.ExpectedReturnDate.inputValue}"
+                                      label="Expected Return Date"
+                                      required="#{bindings.ExpectedReturnDate.hints.mandatory}"
+                                      columns="#{bindings.ExpectedReturnDate.hints.displayWidth}"
+                                      shortDesc="#{bindings.ExpectedReturnDate.hints.tooltip}" id="id4"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.ExpectedReturnDate.validator}"/>
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:inputDate>
+                        <af:inputDate value="#{bindings.ActualReturnDate.inputValue}"
+                                      label="Actual Return Date" showRequired="true"
+                                      columns="#{bindings.ActualReturnDate.hints.displayWidth}"
+                                      shortDesc="#{bindings.ActualReturnDate.hints.tooltip}" id="id5"
+                                      contentStyle="width:220px"
+                                      disabled="#{bindings.Status.inputValue ne 'Draft' and bindings.Status.inputValue ne 'REJ'}"
+                                      minValue="#{backingBeanScope.AddEditLeaveResumptionMb.minActualDate}"
+                                      autoSubmit="true"
+                                      maxValue="#{backingBeanScope.AddEditLeaveResumptionMb.maxActualDate}">
+                            <f:validator binding="#{bindings.ActualReturnDate.validator}"/>
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:inputDate>
+                        <af:inputText value="#{bindings.ExtraLeaveDays.inputValue}"
+                                      label="Extra Leave Days"
+                                      required="#{bindings.ExtraLeaveDays.hints.mandatory}"
+                                      columns="#{bindings.ExtraLeaveDays.hints.displayWidth}"
+                                      maximumLength="#{bindings.ExtraLeaveDays.hints.precision}"
+                                      shortDesc="#{bindings.ExtraLeaveDays.hints.tooltip}" id="it10"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.ExtraLeaveDays.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.ExtraLeaveDays.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.TotalLeaveDays.inputValue}"
+                                      label="Total Leave Days"
+                                      required="#{bindings.TotalLeaveDays.hints.mandatory}"
+                                      columns="#{bindings.TotalLeaveDays.hints.displayWidth}"
+                                      maximumLength="#{bindings.TotalLeaveDays.hints.precision}"
+                                      shortDesc="#{bindings.TotalLeaveDays.hints.tooltip}" id="it11"
+                                      contentStyle="width:220px" disabled="true">
+                            <f:validator binding="#{bindings.TotalLeaveDays.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.TotalLeaveDays.format}"/>
+                        </af:inputText>
+                            <af:inputText value="#{bindings.Remarks.inputValue}" label="#{bindings.Remarks.hints.label}"
+                                          required="#{(bindings.ExpectedReturnDate.inputValue &lt; bindings.ActualReturnDate.inputValue) ? true : false}"
+                                          columns="#{bindings.Remarks.hints.displayWidth}"
+                                          maximumLength="#{bindings.Remarks.hints.precision}"
+                                          shortDesc="#{bindings.Remarks.hints.tooltip}" id="it12"
+                                          contentStyle="width:220px" rows="3" partialTriggers="id5">
+                                <f:validator binding="#{bindings.Remarks.validator}"/>
+                            </af:inputText>
+                            <af:inputText value="#{bindings.ApprovalStatus1.inputValue}"
+                                      label="#{bindings.ApprovalStatus1.hints.label}"
+                                      required="#{bindings.ApprovalStatus1.hints.mandatory}"
+                                      columns="#{bindings.ApprovalStatus1.hints.displayWidth}"
+                                      maximumLength="#{bindings.ApprovalStatus1.hints.precision}"
+                                      shortDesc="#{bindings.ApprovalStatus1.hints.tooltip}" id="it13"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.ApprovalStatus1.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.AbsenceStatus.inputValue}"
+                                      label="#{bindings.AbsenceStatus.hints.label}"
+                                      required="#{bindings.AbsenceStatus.hints.mandatory}"
+                                      columns="#{bindings.AbsenceStatus.hints.displayWidth}"
+                                      maximumLength="#{bindings.AbsenceStatus.hints.precision}"
+                                      shortDesc="#{bindings.AbsenceStatus.hints.tooltip}" id="it14"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.AbsenceStatus.validator}"/>
+                        </af:inputText>                        
+                        <af:inputText value="#{bindings.FlowWith.inputValue}" label="#{bindings.FlowWith.hints.label}"
+                                      required="#{bindings.FlowWith.hints.mandatory}"
+                                      columns="#{bindings.FlowWith.hints.displayWidth}"
+                                      maximumLength="#{bindings.FlowWith.hints.precision}"
+                                      shortDesc="#{bindings.FlowWith.hints.tooltip}" id="it16"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.FlowWith.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.FlowWith.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.CreatedBy.inputValue}" label="#{bindings.CreatedBy.hints.label}"
+                                      required="#{bindings.CreatedBy.hints.mandatory}"
+                                      columns="#{bindings.CreatedBy.hints.displayWidth}"
+                                      maximumLength="#{bindings.CreatedBy.hints.precision}"
+                                      shortDesc="#{bindings.CreatedBy.hints.tooltip}" id="it17"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.CreatedBy.validator}"/>
+                        </af:inputText>
+                        <af:inputDate value="#{bindings.CreationDate.inputValue}"
+                                      label="#{bindings.CreationDate.hints.label}"
+                                      required="#{bindings.CreationDate.hints.mandatory}"
+                                      columns="#{bindings.CreationDate.hints.displayWidth}"
+                                      shortDesc="#{bindings.CreationDate.hints.tooltip}" id="id6"
+                                      rendered="false">
+                            <f:validator binding="#{bindings.CreationDate.validator}"/>
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:inputDate>
+                         </af:panelFormLayout>
+                        </af:panelBox>                    
+                </af:panelBox>
+                <af:panelBox text="Leave Resumption Detail" id="pb2">
+                    <f:facet name="toolbar">
+                        <af:toolbar id="t6" flex="100">
+                            <af:link actionListener="#{bindings.Execute.execute}" id="l1"
+                                     icon="/images/icons8-refresh-16.png" text="Refresh"/>
+                        </af:toolbar>
+                    </f:facet>
+                <af:table value="#{bindings.LeaveResumptionDtl_VO1.collectionModel}" var="row"
+                          rows="#{bindings.LeaveResumptionDtl_VO1.rangeSize}"
+                          emptyText="#{bindings.LeaveResumptionDtl_VO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0" columnStretching="column:c4"
+                          selectedRowKeys="#{bindings.LeaveResumptionDtl_VO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.LeaveResumptionDtl_VO1.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.LeaveResumptionDtl_VO1.rangeSize}"
+                          filterModel="#{bindings.LeaveResumptionDtl_VO1Query.queryDescriptor}" filterVisible="true"
+                          queryListener="#{bindings.LeaveResumptionDtl_VO1Query.processQuery}" varStatus="vs" id="t1"
+                          partialTriggers="::l1">
+                    <af:column id="c14" headerText="SL no" width="50" align="center">
+                        <af:outputText value="#{vs.index+1}" id="ot15"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqDtlId.name}"
+                               filterable="true" sortable="true" visible="false"
+                               headerText="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqDtlId.label}" id="c1">
+                        <af:outputText value="#{row.LeaveReqDtlId}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqDtlId.tooltip}"
+                                       id="ot2">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqDtlId.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqId.name}" filterable="true"
+                               sortable="true" headerText="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqId.label}"
+                               id="c2" visible="false">
+                        <af:outputText value="#{row.LeaveReqId}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqId.tooltip}" id="ot3">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqId.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqNo.name}" filterable="true"
+                               sortable="true" headerText="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqNo.label}"
+                               id="c3" visible="false">
+                        <af:outputText value="#{row.LeaveReqNo}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqNo.tooltip}"
+                                       id="ot4"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqType.name}"
+                               filterable="true" sortable="true" align="center"
+                               headerText="Leave Req Type" id="c4">
+                        <af:outputText value="#{row.LeaveReqType}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.LeaveReqType.tooltip}"
+                                       id="ot5"/>
+                    </af:column>
+                     <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.StratDate.name}" filterable="true"
+                               sortable="true" headerText="Leave From"
+                               id="c9">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.LeaveResumptionDtl_VO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.StratDate.value}"
+                                          id="id7">
+                                <af:convertDateTime pattern="dd-MM-yyyy"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.StratDate}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.StratDate.tooltip}" id="ot10">
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.EndDate.name}" filterable="true"
+                               sortable="true" headerText="Leave To"
+                               id="c10">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.LeaveResumptionDtl_VO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EndDate.value}"
+                                          id="id8">
+                                <af:convertDateTime pattern="dd-MM-yyyy"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.EndDate}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.EndDate.tooltip}" id="ot11">
+                            <af:convertDateTime pattern="dd-MM-yyyy"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.PerAbsenceEntryId.name}"
+                               filterable="true" sortable="true" visible="false"
+                               headerText="#{bindings.LeaveResumptionDtl_VO1.hints.PerAbsenceEntryId.label}" id="c5">
+                        <af:outputText value="#{row.PerAbsenceEntryId}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.PerAbsenceEntryId.tooltip}"
+                                       id="ot6">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.LeaveResumptionDtl_VO1.hints.PerAbsenceEntryId.format}"/>
+                        </af:outputText>
+                    </af:column>                    
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.AppliedLeaveDays.name}"
+                               filterable="true" sortable="true" align="center"
+                               headerText="Applied Leave Days" id="c7">
+                        <af:outputText value="#{row.AppliedLeaveDays}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.AppliedLeaveDays.tooltip}"
+                                       id="ot8">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.LeaveResumptionDtl_VO1.hints.AppliedLeaveDays.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.AbsenceStatus.name}"
+                               filterable="true" sortable="true" align="center"
+                               headerText="Absence Status" id="c6">
+                        <af:outputText value="#{row.AbsenceStatus}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.AbsenceStatus.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.ApprovalStatus.name}"
+                               filterable="true" sortable="true" visible="false"
+                               headerText="#{bindings.LeaveResumptionDtl_VO1.hints.ApprovalStatus.label}" id="c8">
+                        <af:outputText value="#{row.ApprovalStatus}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.ApprovalStatus.tooltip}"
+                                       id="ot9"/>
+                    </af:column>
+                   
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.ExpectedReturnDate.name}"
+                               filterable="true" sortable="true" visible="false"
+                               headerText="#{bindings.LeaveResumptionDtl_VO1.hints.ExpectedReturnDate.label}" id="c11">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.LeaveResumptionDtl_VO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ExpectedReturnDate.value}"
+                                          id="id9">
+                                <af:convertDateTime pattern="#{bindings.LeaveResumptionDtl_VO1.hints.ExpectedReturnDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.ExpectedReturnDate}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.ExpectedReturnDate.tooltip}"
+                                       id="ot12">
+                            <af:convertDateTime pattern="#{bindings.LeaveResumptionDtl_VO1.hints.ExpectedReturnDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.Remarks.name}" filterable="true"
+                               sortable="true" headerText="#{bindings.LeaveResumptionDtl_VO1.hints.Remarks.label}"
+                               id="c12" visible="false">
+                        <af:outputText value="#{row.Remarks}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.Remarks.tooltip}" id="ot13"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.LeaveResumptionDtl_VO1.hints.CreationDate.name}"
+                               filterable="true" sortable="true" visible="false"
+                               headerText="#{bindings.LeaveResumptionDtl_VO1.hints.CreationDate.label}" id="c13">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.LeaveResumptionDtl_VO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CreationDate.value}"
+                                          id="id10">
+                                <af:convertDateTime pattern="#{bindings.LeaveResumptionDtl_VO1.hints.CreationDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.CreationDate}"
+                                       shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.CreationDate.tooltip}"
+                                       id="ot14">
+                            <af:convertDateTime pattern="#{bindings.LeaveResumptionDtl_VO1.hints.CreationDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                        <af:column headerText="Interface Status" id="c15">
+                            <af:outputText value="#{row.InterfaceStatus}"
+                                           shortDesc="#{bindings.LeaveResumptionDtl_VO1.hints.InterfaceStatus.tooltip}"
+                                           id="ot16"/>
+                        </af:column>
+                    </af:table>
+                </af:panelBox>
+            </af:panelBox>
+        </f:facet>
+        <f:facet name="footerStart"/>
+        <f:facet name="footer"/>
+        <f:facet name="footerEnd"/>
+        <f:facet name="startPanel"/>
+        <f:facet name="endPanel"/>
+        <f:facet name="headerStart"/>
+        <f:facet name="header"/>
+        <f:facet name="headerEnd"/>
+    </af:pageTemplate>
+</jsp:root>

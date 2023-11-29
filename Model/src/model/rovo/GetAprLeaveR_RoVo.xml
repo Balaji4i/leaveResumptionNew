@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="GetAprLeaveR_RoVo"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.rovo.GetAprLeaveR_RoVo_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select  
+LEAVE_REQ_ID,  
+LEAVE_REQ_NO,  
+LEAVE_REQ_TYPE,  
+EMP_ID,   
+EMP_NO,   
+EMPLOYEE_NAME,  
+STRAT_DATE,   
+END_DATE,  
+APPLIED_LEAVE_DAYS,   
+EXPECTED_RETURN_DATE,   
+ACTUAL_RETURN_DATE,   
+EXTRA_LEAVE_DAYS,  
+TOTAL_LEAVE_DAYS,  
+STATUS  
+from  
+xxlr_leave_resumption_header lrh  
+where   
+lrh.STATUS in ('APR','PROCESSED','Completed')  
+order by lrh.LEAVE_REQ_ID desc]]></SQLQuery>
+  <ViewAttribute
+    Name="LeaveReqId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="LEAVE_REQ_ID"
+    Expression="LEAVE_REQ_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LeaveReqNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LEAVE_REQ_NO"
+    Expression="LEAVE_REQ_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LeaveReqType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="260"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LEAVE_REQ_TYPE"
+    Expression="LEAVE_REQ_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="260"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmpId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="EMP_ID"
+    Expression="EMP_ID"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="EmpNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="EMP_NO"
+    Expression="EMP_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EmployeeName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="300"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="EMPLOYEE_NAME"
+    Expression="EMPLOYEE_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="300"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StratDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="STRAT_DATE"
+    Expression="STRAT_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="EndDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="END_DATE"
+    Expression="END_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="AppliedLeaveDays"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="APPLIED_LEAVE_DAYS"
+    Expression="APPLIED_LEAVE_DAYS"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ExpectedReturnDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="EXPECTED_RETURN_DATE"
+    Expression="EXPECTED_RETURN_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="ActualReturnDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="ACTUAL_RETURN_DATE"
+    Expression="ACTUAL_RETURN_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="ExtraLeaveDays"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="EXTRA_LEAVE_DAYS"
+    Expression="EXTRA_LEAVE_DAYS"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TotalLeaveDays"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TOTAL_LEAVE_DAYS"
+    Expression="TOTAL_LEAVE_DAYS"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="60"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATUS"
+    Expression="STATUS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="LeaveReqId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

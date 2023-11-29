@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/oracle/apps/uikit/common/pageTemplates/MainPageTemplate.jspx" id="pt1">
+        <f:facet name="pageContents">
+           
+                <af:panelGroupLayout layout="vertical" id="pgl3">
+                    <af:panelHeader text="Naresco Leave Resumption" id="ph1">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.SearchLrVcQuery.queryDescriptor}"
+                                  model="#{bindings.SearchLrVcQuery.queryModel}"
+                                  queryListener="#{bindings.SearchLrVcQuery.processQuery}"
+                                  queryOperationListener="#{bindings.SearchLrVcQuery.processQueryOperation}"
+                                  maxColumns="3" rows="2"/>
+                    </af:panelHeader>
+                <af:panelBox id="pb1" showDisclosure="false" inlineStyle="border-color:transparent;">
+                    <f:facet name="toolbar"/>
+                    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t2" flex="1">
+                                <af:panelGroupLayout id="pgl1" layout="horizontal" halign="right">
+                                    <!--<af:link id="cil3" icon="/images/func_add_16_ena.png"
+                                             hoverIcon="/images/func_add_16_hov.png" partialSubmit="true" action="add">
+                                        --><!--<af:setPropertyListener from="#{'add'}" to="#{pageFlowScope.mode}"
+                                                                type="action"/>
+                                        <af:setPropertyListener from="#{null}" to="#{pageFlowScope.headerId}"
+                                                                type="action"/>--><!--
+                                    </af:link>-->
+                                    <af:spacer width="10" height="10" id="s1"/>
+                                    <af:link hoverIcon="/images/func_pencil_16_hov.png" action="addEdit"
+                                             depressedIcon="/images/func_pencil_16_act.png"
+                                             icon="/images/func_pencil_16_ena.png" partialSubmit="true"
+                                             disabledIcon="/images/func_pencil_16_dis.png" id="l2"
+                                             actionListener="#{backingBeanScope.SearchPayroll.onClickEdit}">
+                                        <!--<af:setPropertyListener from="#{'edit'}" to="#{pageFlowScope.mode}"
+                                                                type="action"/>-->
+                                        <af:setPropertyListener from="#{bindings.LeaveReqId.inputValue}"
+                                                                to="#{pageFlowScope.id}" type="action"/>
+                                    </af:link>
+                                    <af:spacer width="10" height="10" id="s2"/>
+                                    <af:button text="Sync Data" id="b1"
+                                               actionListener="#{backingBeanScope.SearchPayroll.onClickSync}"/>
+                                   
+                                </af:panelGroupLayout>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.SearchLeaveResumption_RoVo1.collectionModel}" var="row"
+                                  rows="#{bindings.SearchLeaveResumption_RoVo1.rangeSize}"
+                                  emptyText="#{bindings.SearchLeaveResumption_RoVo1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0" columnStretching="column:c6"
+                                  selectedRowKeys="#{bindings.SearchLeaveResumption_RoVo1.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.SearchLeaveResumption_RoVo1.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.SearchLeaveResumption_RoVo1.rangeSize}"
+                                  filterModel="#{bindings.SearchLeaveResumption_RoVo1Query.queryDescriptor}"
+                                  filterVisible="true" scrollPolicy="page"
+                                  queryListener="#{bindings.SearchLeaveResumption_RoVo1Query.processQuery}"
+                                  varStatus="vs" id="t1" partialTriggers=":::qryId1">
+                            <af:column id="c13" headerText="Sl No" width="50" align="center">
+                                <af:outputText value="#{vs.index+1}" id="ot13"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqId.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqId.label}"
+                                       id="c1" visible="false">
+                                <af:outputText value="#{row.LeaveReqId}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqId.tooltip}"
+                                               id="ot1">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqId.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqNo.name}"
+                                       filterable="true" sortable="true" align="center"
+                                       headerText="Leave Req No"
+                                       id="c2">
+                                <af:outputText value="#{row.LeaveReqNo}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqNo.tooltip}"
+                                               id="ot2"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.PerAbsenceEntryId.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.SearchLeaveResumption_RoVo1.hints.PerAbsenceEntryId.label}"
+                                       id="c3" visible="false">
+                                <af:outputText value="#{row.PerAbsenceEntryId}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.PerAbsenceEntryId.tooltip}"
+                                               id="ot3">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SearchLeaveResumption_RoVo1.hints.PerAbsenceEntryId.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqType.name}"
+                                       filterable="true" sortable="true" align="center"
+                                       headerText="Leave Req Type"
+                                       id="c4" width="200">
+                                <af:outputText value="#{row.LeaveReqType}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.LeaveReqType.tooltip}"
+                                               id="ot4"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.EmpNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="Employee No" id="c5">
+                                <af:outputText value="#{row.EmpNo}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.EmpNo.tooltip}"
+                                               id="ot5"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.EmployeeName.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.SearchLeaveResumption_RoVo1.hints.EmployeeName.label}"
+                                       id="c6">
+                                <af:outputText value="#{row.EmployeeName}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.EmployeeName.tooltip}"
+                                               id="ot6"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.StratDate.name}"
+                                       filterable="true" sortable="true" align="center"
+                                       headerText="Leave From"
+                                       id="c7">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.SearchLeaveResumption_RoVo1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.StratDate.value}"
+                                                  id="id1">
+                                        <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.StratDate}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.StratDate.tooltip}"
+                                               id="ot7">
+                                    <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.EndDate.name}"
+                                       filterable="true" sortable="true" align="center"
+                                       headerText="Leave To" id="c8">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.SearchLeaveResumption_RoVo1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EndDate.value}"
+                                                  id="id2">
+                                        <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.EndDate}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.EndDate.tooltip}"
+                                               id="ot8">
+                                    <af:convertDateTime pattern="dd-MM-yyyy"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.AppliedLeaveDays.name}"
+                                       filterable="true" sortable="true" align="center"
+                                       headerText="Applied Leave Days"
+                                       id="c9">
+                                <af:outputText value="#{row.AppliedLeaveDays}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.AppliedLeaveDays.tooltip}"
+                                               id="ot9">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SearchLeaveResumption_RoVo1.hints.AppliedLeaveDays.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.Status.name}"
+                                       filterable="true" sortable="true" align="center"
+                                       headerText="#{bindings.SearchLeaveResumption_RoVo1.hints.Status.label}" id="c10">
+                                <af:outputText value="#{row.Status eq 'PEN' ? 'Pending' : row.Status eq 'APR' ? 'Approved' : row.Status eq 'REJ' ? 'Rejected' : row.Status}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.Status.tooltip}"
+                                               id="ot10"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowWith.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowWith.label}"
+                                       id="c11" visible="false">
+                                <af:outputText value="#{row.FlowWith}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowWith.tooltip}"
+                                               id="ot11">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowWith.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowStatus.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowStatus.label}"
+                                       id="c12" visible="false"> 
+                                <af:outputText value="#{row.FlowStatus}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.FlowStatus.tooltip}"
+                                               id="ot12"/>
+                            </af:column>
+                            <af:column headerText="Extra Leave Days" align="center"
+                                       id="c14">
+                                <af:outputText value="#{row.ExtraLeaveDays}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.ExtraLeaveDays.tooltip}"
+                                               id="ot14">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SearchLeaveResumption_RoVo1.hints.ExtraLeaveDays.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="Total Leave Days" visible="false"
+                                       id="c15">
+                                <af:outputText value="#{row.TotalLeaveDays}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.TotalLeaveDays.tooltip}"
+                                               id="ot15">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SearchLeaveResumption_RoVo1.hints.TotalLeaveDays.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="Next Approver" id="c16" width="150">
+                                <af:outputText value="#{row.NextAppr}"
+                                               shortDesc="#{bindings.SearchLeaveResumption_RoVo1.hints.NextAppr.tooltip}"
+                                               id="ot16"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:panelBox>
+             </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="footerStart"/>
+        <f:facet name="footer"/>
+        <f:facet name="footerEnd"/>
+        <f:facet name="startPanel"/>
+        <f:facet name="endPanel"/>
+        <f:facet name="headerStart"/>
+        <f:facet name="header"/>
+        <f:facet name="headerEnd"/>
+    </af:pageTemplate>
+</jsp:root>

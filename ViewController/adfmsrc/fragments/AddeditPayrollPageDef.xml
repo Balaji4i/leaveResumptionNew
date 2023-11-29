@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="AddeditPayrollPageDef"
+                Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PAYROLL_HDR_VO" RangeSize="25" DataControl="Naresco_AMDataControl" id="PAYROLL_HDR_VOIterator"/>
+    <iterator Binds="LeaveResumptionHdr_VO1" RangeSize="25" DataControl="Naresco_AMDataControl"
+              id="LeaveResumptionHdr_VO1Iterator"/>
+    <iterator Binds="LeaveResumptionDtl_VO1" RangeSize="25" DataControl="Naresco_AMDataControl"
+              id="LeaveResumptionDtl_VO1Iterator"/>
+    <searchRegion Binds="LeaveResumptionDtl_VO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="LeaveResumptionDtl_VO1Query"/>
+    <iterator id="Lookup_ROVO1Iterator" Binds="Lookup_ROVO1" DataControl="Naresco_AMDataControl" RangeSize="25"/>
+    <iterator id="UserAcess_ROVO1Iterator" Binds="UserAcess_ROVO1" DataControl="Naresco_AMDataControl" RangeSize="25"/>
+    <iterator Binds="GetAprLeaveR_RoVo1" RangeSize="25" DataControl="Naresco_AMDataControl"
+              id="GetAprLeaveR_RoVo1Iterator"/>
+  </executables>
+  <bindings>
+    <action id="Commit" DataControl="Naresco_AMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="Naresco_AMDataControl" RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <methodAction id="callingReportPkg" RequiresUpdateModel="true" Action="invokeMethod" MethodName="callingReportPkg"
+                  IsViewObjectMethod="false" DataControl="Naresco_AMDataControl"
+                  InstanceName="bindings.callingReportPkg.dataControl.dataProvider"
+                  ReturnName="data.Naresco_AMDataControl.methodResults.callingReportPkg_callingReportPkg_dataControl_dataProvider_callingReportPkg_result">
+      <NamedData NDName="buid" NDType="java.lang.String"/>
+      <NamedData NDName="date" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PAYROLL_HDR_VOIterator" id="ApprovalStatus">
+      <AttrNames>
+        <Item Value="ApprovalStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="LeaveReqId">
+      <AttrNames>
+        <Item Value="LeaveReqId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="LeaveReqNo">
+      <AttrNames>
+        <Item Value="LeaveReqNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="PerAbsenceEntryId">
+      <AttrNames>
+        <Item Value="PerAbsenceEntryId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="LeaveReqType">
+      <AttrNames>
+        <Item Value="LeaveReqType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="FuncId">
+      <AttrNames>
+        <Item Value="FuncId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="EmpId">
+      <AttrNames>
+        <Item Value="EmpId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="EmpNo">
+      <AttrNames>
+        <Item Value="EmpNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="EmployeeName">
+      <AttrNames>
+        <Item Value="EmployeeName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="HireDate">
+      <AttrNames>
+        <Item Value="HireDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="StratDate">
+      <AttrNames>
+        <Item Value="StratDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="EndDate">
+      <AttrNames>
+        <Item Value="EndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="AppliedLeaveDays">
+      <AttrNames>
+        <Item Value="AppliedLeaveDays"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="ExpectedReturnDate">
+      <AttrNames>
+        <Item Value="ExpectedReturnDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="ActualReturnDate">
+      <AttrNames>
+        <Item Value="ActualReturnDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="ExtraLeaveDays">
+      <AttrNames>
+        <Item Value="ExtraLeaveDays"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="TotalLeaveDays">
+      <AttrNames>
+        <Item Value="TotalLeaveDays"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="ApprovalStatus1">
+      <AttrNames>
+        <Item Value="ApprovalStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="AbsenceStatus">
+      <AttrNames>
+        <Item Value="AbsenceStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="FlowWith">
+      <AttrNames>
+        <Item Value="FlowWith"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="CreatedBy">
+      <AttrNames>
+        <Item Value="CreatedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="CreationDate">
+      <AttrNames>
+        <Item Value="CreationDate"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="LeaveResumptionDtl_VO1Iterator" id="LeaveResumptionDtl_VO1">
+      <nodeDefinition DefName="model.vo.LeaveResumptionDtl_VO" Name="LeaveResumptionDtl_VO10">
+        <AttrNames>
+          <Item Value="LeaveReqDtlId"/>
+          <Item Value="LeaveReqId"/>
+          <Item Value="LeaveReqNo"/>
+          <Item Value="LeaveReqType"/>
+          <Item Value="PerAbsenceEntryId"/>
+          <Item Value="AbsenceStatus"/>
+          <Item Value="AppliedLeaveDays"/>
+          <Item Value="ApprovalStatus"/>
+          <Item Value="StratDate"/>
+          <Item Value="EndDate"/>
+          <Item Value="ExpectedReturnDate"/>
+          <Item Value="Remarks"/>
+          <Item Value="CreationDate"/>
+          <Item Value="InterfaceStatus"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="LeaveResumptionHdr_VO1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="GetAprLeaveR_RoVo1Iterator" id="GetAprLeaveR_RoVo1">
+      <nodeDefinition DefName="model.rovo.GetAprLeaveR_RoVo" Name="GetAprLeaveR_RoVo10">
+        <AttrNames>
+          <Item Value="LeaveReqId"/>
+          <Item Value="LeaveReqNo"/>
+          <Item Value="LeaveReqType"/>
+          <Item Value="EmpId"/>
+          <Item Value="EmpNo"/>
+          <Item Value="EmployeeName"/>
+          <Item Value="StratDate"/>
+          <Item Value="EndDate"/>
+          <Item Value="AppliedLeaveDays"/>
+          <Item Value="ExpectedReturnDate"/>
+          <Item Value="ActualReturnDate"/>
+          <Item Value="ExtraLeaveDays"/>
+          <Item Value="TotalLeaveDays"/>
+          <Item Value="Status"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="LeaveResumptionDtl_VO1Iterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>
